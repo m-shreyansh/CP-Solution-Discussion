@@ -1,0 +1,12 @@
+
+{% extends 'home/main.html' %}
+{% load static %}
+{% block content %}
+
+<form action="/new-sol" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock content %}

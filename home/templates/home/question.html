@@ -1,0 +1,19 @@
+
+{% extends 'home/main.html' %}
+{% load static %}
+{% block content %}
+
+	{%for solution in solutions%}
+<a href="/solution/{{solution.id}}">
+	<p>
+		{{solution.hint}}<br>
+		{{solution.user}} {{solution.likes}}
+	</p>
+</a>	
+
+	{%endfor%}
+	<!-- Likes:30
+	Comments
+	 Likes for comments-->
+
+{% endblock content %}

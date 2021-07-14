@@ -1,0 +1,23 @@
+
+.body_main{
+	margin-left: 5%;
+}
+.Like_button{
+height: 30px;
+width: 30px;
+}
+
+.Like_button1{
+padding: 0;
+border: none;
+background: none;
+}
+
+.reply_content{
+height: 150px;
+width: 50%;
+}
+
+.question{
+		margin-left: 5%;
+}

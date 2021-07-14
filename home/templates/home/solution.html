@@ -1,0 +1,84 @@
+
+{% extends 'home/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="body_main">
+	<p>
+	  <button class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Hint</button>
+	</p>
+	<div class="row">
+	  <div class="col">
+	    <div class="collapse multi-collapse" id="multiCollapseExample1">
+	      <div class="card card-body">
+	      	{{hint}}
+	      </div>
+	    </div>
+	  </div>
+	</div>	
+
+	<p>
+	  <button class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Solution</button>
+	</p>
+	<div class="row">
+	  <div class="col">
+	    <div class="collapse multi-collapse" id="multiCollapseExample2">
+	      <div class="card card-body">
+	      	{{solution}}
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<p>
+	  <button class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Code</button>
+	</p>
+	<div class="row">
+	  <div class="col">
+	    <div class="collapse multi-collapse" id="multiCollapseExample3">
+	      <div class="card card-body">
+	      	{{code}}
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<form action="/like" method="post">
+		{% csrf_token %}
+		<input type="hidden" name="next" value="{{ request.path }}">
+		<input type="hidden" name="sol_id" value="{{sol_id}}">
+		<button type="submit" class="Like_button1">
+			{% if liked == True%}
+			<img  class="Like_button" src="{%static 'images/liked.png'%}" alt="Liked">
+			{%else%}
+			<img class="Like_button" src="{%static 'images/like.png'%}" alt="Like">
+			{%endif%}
+		</button>
+	</form>
+	<span style="margin-left:7px;">{{likes}}</span>
+
+	{%for comment in comments%}
+	<p style="margin-left:{{comment.level}}px;">
+		{{comment.user}}
+		{{comment.likes}}<br>
+		{{comment.content}}
+		<a data-toggle="collapse" data-target="#demo{{comment.id}}">Reply</a>
+
+			<div id="demo{{comment.id}}" class="collapse">
+		<form id="reply_form "action="/reply" method="post" style="margin-left:{{comment.level}}px;">
+			{% csrf_token %}
+			{{form.content}}
+			<!-- <input class = "reply_content" type="text" name="reply_content"> -->
+			<input type="hidden" name="parent_id" value="{{comment.id}}">
+			<input type="hidden" name="next" value="{{ request.path }}">
+			<button type="submit">Post</button>
+		</form>
+			</div>
+
+	</p>
+	{%endfor%}
+</div>
+	<!-- Likes:30
+	Comments
+	 Likes for comments-->
+
+{% endblock content %}
